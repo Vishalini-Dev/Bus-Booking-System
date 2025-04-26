@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Profile</title>
+    <link rel="stylesheet" href="profile.css">
+  </head>
+  <body>
+    <header>
+      <img src="images/logo.png" alt="logo" />
+      <h2>PAYANAM</h2>
+    </header>
+   <div class="profile-info"></div>
+
+      <div class="history-container">
+        <h2>Booking History</h2>
+        <div id="booking-history"></div>
+      </div>
+      <a href="index.html"><button id="logout">Logout</button></a>
+    </div>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", async () => {
+        const userId = localStorage.getItem("userId");
+        if (!userId) {
+          alert("Please login to view your profile");
+          window.location.href = "login.html";
+          return;
+        }
+    
+        try {
+          const userRes = await fetch(`http://localhost:8080/api/users/profile/${userId}`);
+          if (!userRes.ok) throw new Error("Failed to load user profile");
+          const user = await userRes.json();
+    
+         
+          document.querySelector(".profile-info").innerHTML = `
+            <h2>User Profile</h2>
+            <p><strong>Name:</strong> ${user.name}</p>
+            <p><strong>Email:</strong> ${user.email}</p>
+            <p><strong>Phone:</strong> ${user.phone}</p>
+            <a id="changePasswordLink" href="changePassword.html?name=${encodeURIComponent(user.name)}">
+              <button type="button">Change Password</button>
+            </a>
+          `;
+          
+          const historyRes = await fetch(`http://localhost:8080/api/tickets/history/${userId}`);
+          if (!historyRes.ok) throw new Error("Failed to load booking history");
+          const tickets = await historyRes.json();
+    
+          const bookingHistoryDiv = document.getElementById("booking-history");
+    
+          if (!tickets || tickets.length === 0) {
+            bookingHistoryDiv.innerHTML = "<p>No bookings found</p>";
+            return;
+          }
+    
+          bookingHistoryDiv.innerHTML = `
+            <table>
+              <thead>
+                <tr>
+                  <th>Bus</th>
+                  <th>Route</th>
+                  <th>Travel Date</th>
+                  <th>Departure</th>
+                  <th>Arrival</th>
+                  <th>Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${tickets.map(ticket => `
+                  <tr>
+                    <td>${ticket.bus?.name || "N/A"}</td>
+                    <td>${ticket.bus?.source || "N/A"} → ${ticket.bus?.destination || "N/A"}</td>
+                    <td>${ticket.travelDate || "N/A"}</td>
+                    <td>${ticket.bus?.departure || "N/A"}</td>
+                    <td>${ticket.bus?.arrival || "N/A"}</td>
+                    <td>₹${ticket.bus?.price || "N/A"}</td>
+                  </tr>
+                `).join("")}
+              </tbody>
+            </table>
+          `;
+        } catch (error) {
+          console.error("Error:", error);
+          const errorContainer = document.getElementById("booking-history") || document.querySelector(".history-container");
+          if (errorContainer) {
+            errorContainer.innerHTML = `
+              <div class="error">Error loading data: ${error.message}</div>
+            `;
+          }
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bus Ticket Booking</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      .header {
+        display: flex;
+        background-color: black;
+        color: white;
+      }
+      img {
+        padding-top: 10px;
+        width: 70px;
+        height: 40px;
+      }
+      #body {
+        background: url(images/bg.jpg) no-repeat center center;
+        background-size: cover;
+        height: calc(100vh - 50px); 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+
+      .content {
+        background-color: rgba(0, 0, 0, 0.5); 
+        padding: 30px;
+        border-radius: 10px;
+      }
+
+      .content i {
+        margin: 0;
+        padding: 10px;
+        color: white;
+        font-size: 28px;
+      }
+
+      .content hr {
+        margin: 20px 0;
+        border: 1px solid white;
+      }
+
+      .login-btn {
+        color: white;
+        background-color: #007bff;
+        padding: 10px 20px;
+        text-decoration: none;
+        border-radius: 5px;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="header">
+      <img src="images/logo.png" alt="logo" />
+      <h2>PAYANAM</h2>
+    </div>
+    <div id="body">
+      <div class="content">
+        <i>"Ungal Payanam, Engal Vandi."</i>
+        <hr />
+        <a href="login.html" class="login-btn">Login</a>
+      </div>
+    </div>
+  </body>
+</html>

@@ -63,27 +63,6 @@ A full-stack **Bus Ticket Booking System** built using Spring Boot, MySQL, HTML,
 
    III)  GET /api/buses
 
-🧩 Project Structure
-   
-bus-booking-system/
-│
-├── src/
-│   ├── main/
-│   │   ├── java/com/busbooking/
-│   │   │   ├── controller/
-│   │   │   ├── model/
-│   │   │   ├── repository/
-│   │   │   └── service/
-│   │   └── resources/
-│   │       ├── application.properties
-│   │       └── static/
-│   │           └── (HTML, CSS, JS)
-│
-├── frontend/
-│   └── (HTML, CSS, JS files)
-├── pom.xml
-└── README.md
-
 🧩 Frontend Integration
      The frontend (HTML, CSS, JavaScript) is connected to the Spring Boot backend using CORS.
      If you're setting up the project, you can place your frontend files directly inside the src/main/resources/static folder of the Spring Boot project. This allows Spring Boot to serve your frontend automatically when the application runs.
